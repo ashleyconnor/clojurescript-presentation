@@ -2,7 +2,15 @@
 
 ---
 
+# [fit] 1 Year Anniversary @ OTPP
+
+---
+
 # [fit] **__What is Clojure(script)?__**
+
+---
+
+![fit](images/front-end-great.png)
 
 ---
 
@@ -190,3 +198,20 @@ nil
 - [Re-frame](https://github.com/Day8/re-frame)
 - [Developing ClojureScript With Figwheel](https://www.youtube.com/watch?v=j-kj2qwJa_E)
 - [Code for this presentation](https://github.com/ashleyconnor/clojurescript-presentation)
+- [Fractalify - open source re-frame app](https://github.com/madvas/fractalify/)
+
+---
+
+# [fit] Re-frame lifecycle
+
+```
+app-db  -->  components  -->  Hiccup  -->  Reagent  -->  VDOM  -->  React  -->  DOM
+ ^                                                                              |
+ |                                                                              v
+ handlers <-----  router  <-----------------------  (dispatch [event-id  event params])
+```
+
+---
+
+# [fit] You want to get things done and not jump over hurdles
+![inline](images/rabbit-no-jump.gif)

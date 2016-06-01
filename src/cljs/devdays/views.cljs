@@ -4,9 +4,9 @@
 ;; home
 
 (defn home-panel []
-  (let [name (re-frame/subscribe [:name])]
+  (let [name (re-frame/subscribe [:name]) input (re-frame/subscribe [:input])]
     (fn []
-      [:div (str "Hello from " @name ". This is the Home Page.")
+      [:div (str "Hello " @input " from " @name ". This is the Home Page.")
        [:div [:a {:href "/about"} "go to About Page"]]
        [:div [:a {:href "/input"} "go to Input Page"]]
        [:div [:a {:href "/counter"} "go to Counter Page"]]])))
