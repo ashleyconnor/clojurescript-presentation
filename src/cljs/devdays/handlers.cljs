@@ -8,6 +8,11 @@
    db/default-db))
 
 (re-frame/register-handler
+  :increment-counter
+  (fn  [db _]
+    (update db :counter inc)))
+
+(re-frame/register-handler
  :set-active-panel
  (fn [db [_ active-panel]]
    (assoc db :active-panel active-panel)))

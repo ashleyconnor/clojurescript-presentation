@@ -8,8 +8,8 @@
   (let [name (re-frame/subscribe [:name])]
     (fn []
       [:div (str "Hello from " @name ". This is the Home Page.")
-       [:div [:a {:href "/about"} "go to About Page"]]])))
-
+       [:div [:a {:href "/about"} "go to About Page"]]
+       [:div [:a {:href "/counter"} "go to Counter Page"]]])))
 
 ;; about
 
@@ -18,12 +18,40 @@
     [:div "This is the About Page."
      [:div [:a {:href "/"} "go to Home Page"]]]))
 
+;; counter
+
+; components
+; (defn counting-component []
+;   (let [click-count (re-frame/subscribe [:click-count])]
+;     (fn []
+;     [:div
+;      "The foo " [:code "click-count"] " has value: "
+;      @click-count ". "
+;      [:input {:type "button" :value "Click me!"
+;               :on-click #(swap! click-count inc)}]])))
+
+(defn counting-component []
+  (let [counter (re-frame/subscribe [:counter])]
+    (fn []
+      [:div
+       "The bar " [:code "click-count"] " has value: "
+       @counter ". "
+       [:input {:type "button" :value "Click me!"
+                :on-click #(re-frame/dispatch [:increment-counter])}]])))
+
+(defn counter-panel []
+  (fn []
+    [:div "This is the Counter Page."
+      [counting-component]
+      [:div [:a {:href "/"} "go to Home Page"]]]))
+
 
 ;; main
 
 (defmulti panels identity)
 (defmethod panels :home-panel [] [home-panel])
 (defmethod panels :about-panel [] [about-panel])
+(defmethod panels :counter-panel [] [counter-panel])
 (defmethod panels :default [] [:div])
 
 (defn show-panel

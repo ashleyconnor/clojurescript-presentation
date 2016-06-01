@@ -32,6 +32,8 @@
   (defroute "/about" []
     (re-frame/dispatch [:set-active-panel :about-panel]))
 
+  (defroute "/counter" []
+    (re-frame/dispatch [:set-active-panel :counter-panel]))
 
   ;; --------------------
   (hook-browser-navigation!)
