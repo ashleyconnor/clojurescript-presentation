@@ -7,7 +7,8 @@
                  [compojure "1.5.0"]
                  [yogthos/config "0.8"]
                  [ring "1.4.0"]
-                 [kibu/pushy "0.3.6"]]
+                 [kibu/pushy "0.3.6"]
+                 [venantius/accountant "0.1.7"]]
 
   :main devdays.server
 

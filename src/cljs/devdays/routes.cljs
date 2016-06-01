@@ -5,7 +5,14 @@
               [goog.events :as events]
               [goog.history.EventType :as EventType]
               [re-frame.core :as re-frame]
-              [pushy.core :as pushy]))
+              [pushy.core :as pushy]
+              [accountant.core :as accountant]))
+
+(def history (pushy/pushy secretary/dispatch!
+                      (fn [x] (when (secretary/locate-route x) x))))
+
+;; Start event listeners
+(pushy/start! history)
 
 (defn hook-browser-navigation! []
   (doto (History.)
@@ -27,10 +34,13 @@
 
 
   ;; --------------------
-  (hook-browser-navigation!))
+  (hook-browser-navigation!)
 
-(def history (pushy/pushy secretary/dispatch!
-                          (fn [x] (when (secretary/locate-route x) x))))
-
-;; Start event listeners
-(pushy/start! history)
+  (accountant/configure-navigation!
+  {:nav-handler
+   (fn [path]
+     (secretary/dispatch! path))
+   :path-exists?
+   (fn [path]
+     (secretary/locate-route path))})
+  (accountant/dispatch-current!))
