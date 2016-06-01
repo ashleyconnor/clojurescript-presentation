@@ -13,6 +13,11 @@
     (update db :counter inc)))
 
 (re-frame/register-handler
+  :input-changed
+  (fn [db [_ input]]
+    (assoc db :input input)))
+
+(re-frame/register-handler
  :set-active-panel
  (fn [db [_ active-panel]]
    (assoc db :active-panel active-panel)))

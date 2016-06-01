@@ -1,7 +1,6 @@
 (ns devdays.views
     (:require [re-frame.core :as re-frame]))
 
-
 ;; home
 
 (defn home-panel []
@@ -9,6 +8,7 @@
     (fn []
       [:div (str "Hello from " @name ". This is the Home Page.")
        [:div [:a {:href "/about"} "go to About Page"]]
+       [:div [:a {:href "/input"} "go to Input Page"]]
        [:div [:a {:href "/counter"} "go to Counter Page"]]])))
 
 ;; about
@@ -22,13 +22,13 @@
 
 ; components
 ; (defn counting-component []
-;   (let [click-count (re-frame/subscribe [:click-count])]
+;   (let [counter(re-frame/subscribe [:counter])]
 ;     (fn []
 ;     [:div
 ;      "The foo " [:code "click-count"] " has value: "
-;      @click-count ". "
+;      @counter ". "
 ;      [:input {:type "button" :value "Click me!"
-;               :on-click #(swap! click-count inc)}]])))
+;               :on-click #(swap! counter inc)}]])))
 
 (defn counting-component []
   (let [counter (re-frame/subscribe [:counter])]
@@ -39,10 +39,26 @@
        [:input {:type "button" :value "Click me!"
                 :on-click #(re-frame/dispatch [:increment-counter])}]])))
 
+(defn input-component []
+  (let [input (re-frame/subscribe [:input])]
+    (fn []
+      [:div
+        "Hello : " @input
+        [:div
+          [:input {:type "text" :value @input :on-change #(re-frame/dispatch [:input-changed (-> % .-target .-value)])}]
+        ]
+      ])))
+
 (defn counter-panel []
   (fn []
     [:div "This is the Counter Page."
       [counting-component]
+      [:div [:a {:href "/"} "go to Home Page"]]]))
+
+(defn input-panel []
+  (fn []
+    [:div "This is the Input Page."
+      [input-component]
       [:div [:a {:href "/"} "go to Home Page"]]]))
 
 
@@ -52,6 +68,7 @@
 (defmethod panels :home-panel [] [home-panel])
 (defmethod panels :about-panel [] [about-panel])
 (defmethod panels :counter-panel [] [counter-panel])
+(defmethod panels :input-panel [] [input-panel])
 (defmethod panels :default [] [:div])
 
 (defn show-panel

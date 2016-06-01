@@ -35,6 +35,9 @@
   (defroute "/counter" []
     (re-frame/dispatch [:set-active-panel :counter-panel]))
 
+  (defroute "/input" []
+    (re-frame/dispatch [:set-active-panel :input-panel]))
+
   ;; --------------------
   (hook-browser-navigation!)
 
